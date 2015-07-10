@@ -2,12 +2,14 @@ import tornado.ioloop
 import tornado.web
 
 import skynet.config as CONFIG
-
+from skynet.routes.auth import AuthRoute
 
 def main(debug = True, port = CONFIG.PORT):
     application = tornado.web.Application([
-        (r"/", MainHandler),
-    ], debug = debug)
+        AuthRoute,
+    ], debug = debug
+     , autoreload = debug)
+
     application.listen(port)
     tornado.ioloop.IOLoop.current().start()
 
