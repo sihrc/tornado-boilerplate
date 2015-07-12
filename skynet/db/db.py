@@ -5,4 +5,5 @@ import motor
 
 from skynet.config import MONGODB
 
-mongodb = motor.MotorClient(MONGODB).skynet
+client=motor.MotorClient(MONGODB)
+mongodb = client.skynet
