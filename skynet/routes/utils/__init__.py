@@ -8,6 +8,7 @@ def mongo_callback(req):
         def wrapper(result, error):
             if error:
                 req.respond("Mongo Error " + error, code = 500)
+                return
             func(result)
         return wrapper
     return decorator
@@ -21,9 +22,10 @@ def unpack(arguments = []):
             data = smart_parse(data)
             try:
                 args = [data[item] for item in arguments]
-            except AttributeError:
-                return 400, "%s field was not provided" % item
-            return func(_self, *args)
+            except KeyError:
+                _self.respond("%s field was not provided" % item, code = 400)
+                return
+            func(_self, *args)
         return wrapper
     return decorator
 
@@ -32,14 +34,12 @@ def form_urlencoded_parse(body):
     Parse x-www-form-url encoded data
     """
     try:
-        data = urlparse.parse_qs(body)
-        if not data:
-            raise ParseError("No JSON object could be decoded")
+        data = urlparse.parse_qs(body, strict_parsing=True)
         for key in data:
             data[key] = data[key][0]
         return data
     except ValueError:
-        raise ParseError("No JSON object could be decoded.")
+        raise ValueError("No JSON object could be decoded.")
 
 
 def smart_parse(body):
@@ -48,8 +48,6 @@ def smart_parse(body):
     """
     try:
         data_dict = json.loads(body)
-        if not isinstance(data_dict, dict):
-            raise ParseError('Input must be JSON dictionary')
-        return data_dict
     except ValueError:
         return form_urlencoded_parse(body)
+    return data_dict

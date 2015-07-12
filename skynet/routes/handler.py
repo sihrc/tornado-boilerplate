@@ -4,7 +4,7 @@ SkyNet Request Handler
 import json
 from bson.objectid import ObjectId
 
-import tornado
+import tornado.web
 
 from skynet.routes.utils.auth_utils import user_hash
 
@@ -22,6 +22,8 @@ class SkyNetHandler(tornado.web.RequestHandler):
         except AttributeError:
             self.respond("%s route could not be found" % action, code = 404)
             return
+        except ValueError as e:
+            self.respond(str(e), code=400)
 
         # Pass along the data and get a result
         handler(self.request.body)
