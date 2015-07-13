@@ -1,4 +1,4 @@
-# SkyNetServer
+# SkyNetServer [![Build Status](https://travis-ci.org/SkyNetCloud/SkyNetServer.svg?branch=master)](https://travis-ci.org/SkyNetCloud/SkyNetServer)
 SkyNet Service for cross-platform SMS and calling.
 
 Python + Tornado + Motor (MongoDb)
