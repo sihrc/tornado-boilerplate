@@ -18,15 +18,18 @@ class SkyNetHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def post(self, action):
         try:
+            # Fetch appropriate handler
             handler = getattr(self, str(action))
+
+            # Pass along the data and get a result
+            handler(self.request.body)
         except AttributeError:
             self.respond("%s route could not be found" % action, code = 404)
             return
         except ValueError as e:
             self.respond(str(e), code=400)
 
-        # Pass along the data and get a result
-        handler(self.request.body)
+
 
     def respond(self, data, code=200):
         self.set_status(code)
