@@ -10,7 +10,7 @@ from tornado.ioloop import IOLoop
 from bson.objectid import ObjectId
 
 from skynet.db import db, user_db
-from skynet.tests import SkyNetAsyncTest
+from skynet.tests.utils.motor import SkyNetAsyncTest
 
 @patch("skynet.db.user_db.user_db", db.mongodb.test_user_db)
 class DBTest(SkyNetAsyncTest):
