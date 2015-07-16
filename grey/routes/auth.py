@@ -1,13 +1,13 @@
 """
-greyService Authentication Route
+GreyService Authentication Route
 Creating and Maintaining Users
 """
 from grey.routes.utils.auth_utils import user_hash
 from grey.routes.utils import unpack, mongo_callback
-from grey.routes.handler import greyHandler
+from grey.routes.handler import GreyHandler
 import grey.db.user_db as UserDB
 
-class AuthHandler(greyHandler):
+class AuthHandler(GreyHandler):
     # Create User if doesn't exist
     @unpack(["phone", "device"])
     def login(self, phone, device):

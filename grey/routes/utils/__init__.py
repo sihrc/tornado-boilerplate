@@ -3,6 +3,8 @@ grey Request/Response Utils
 """
 import json, urlparse
 
+from grey.error import MissingField, InvalidJSON
+
 def mongo_callback(req):
     def decorator(func):
         def wrapper(result, error):
@@ -23,8 +25,7 @@ def unpack(arguments = []):
             try:
                 args = [data[item] for item in arguments]
             except KeyError:
-                _self.respond("%s field was not provided" % item, code = 400)
-                return
+                raise MissingField(item)
             func(_self, *args)
         return wrapper
     return decorator
@@ -39,8 +40,7 @@ def form_urlencoded_parse(body):
             data[key] = data[key][0]
         return data
     except ValueError:
-        raise ValueError("No JSON object could be decoded.")
-
+        raise InvalidJSON()
 
 def smart_parse(body):
     """

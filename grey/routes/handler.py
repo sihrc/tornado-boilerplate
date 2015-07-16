@@ -7,6 +7,7 @@ from bson.objectid import ObjectId
 import tornado.web
 
 from grey.routes.utils.auth_utils import user_hash
+from grey.error import GreyError, RouteNotFound
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -14,7 +15,7 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 
-class greyHandler(tornado.web.RequestHandler):
+class GreyHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def post(self, action):
         try:
@@ -24,11 +25,10 @@ class greyHandler(tornado.web.RequestHandler):
             # Pass along the data and get a result
             handler(self.request.body)
         except AttributeError:
-            self.respond("%s route could not be found" % action, code = 404)
-            return
-        except ValueError as e:
-            self.respond(str(e), code=400)
-
+            e = RouteNotFound(action)
+            self.respond(e.message, e.code)
+        except GreyError as e:
+            self.respond(e.message, e.code)
 
 
     def respond(self, data, code=200):

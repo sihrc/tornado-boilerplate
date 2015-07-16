@@ -5,7 +5,9 @@ Routes - Utils
 import unittest, json
 
 from mocks.request_mock import RequestHandler
+
 import grey.routes.utils as utils
+from grey.error import InvalidJSON, MissingField
 
 # Mock request handler
 req_handler = RequestHandler()
@@ -48,17 +50,14 @@ class RoutesUtilsTest(unittest.TestCase):
         data = json.dumps({
             "wrong": "thing"
         })
-
-        unpack_example(req_handler, data)
-        self.assertEqual(req_handler.data, "example field was not provided")
-        self.assertEqual(req_handler.code, 400)
+        self.assertRaises(MissingField, unpack_example, req_handler, data)
 
     def test_urlencoded_parse(self):
-        self.assertRaises(ValueError, utils.form_urlencoded_parse, "bad")
+        self.assertRaises(InvalidJSON, utils.form_urlencoded_parse, "bad")
         self.assertTrue(utils.form_urlencoded_parse("data=example"), {"data": 'example'})
 
     def test_smart_parse(self):
-        self.assertRaises(ValueError, utils.smart_parse, "bad")
+        self.assertRaises(InvalidJSON, utils.smart_parse, "bad")
         self.assertTrue(utils.smart_parse("data=example"), {"data":"example"})
         self.assertTrue(utils.smart_parse("{\"data\":\"example\"}"), {"data": "example"})
 
