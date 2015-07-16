@@ -1,5 +1,5 @@
-# SkyNetServer [![Build Status](https://travis-ci.org/SkyNetCloud/SkyNetServer.svg?branch=master)](https://travis-ci.org/SkyNetCloud/SkyNetServer)
-SkyNet Service for cross-platform SMS and calling.
+# GreyServer [![Build Status](https://travis-ci.org/GreyCorp/GreyServer.svg?branch=master)](https://travis-ci.org/GreyCorp/GreyServer)
+Grey Service for grey folk to recooperate
 
 Python + Tornado + Motor (MongoDb)
 
@@ -25,5 +25,5 @@ sudo pip install nose
 
 Run tests
 ```
-nosetests $SkyNetDirectory
+nosetests $GreyServer
 ```

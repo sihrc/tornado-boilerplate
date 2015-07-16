@@ -1,13 +1,13 @@
 """
-SkyNetService Authentication Route
+greyService Authentication Route
 Creating and Maintaining Users
 """
-from skynet.routes.utils.auth_utils import user_hash
-from skynet.routes.utils import unpack, mongo_callback
-from skynet.routes.handler import SkyNetHandler
-import skynet.db.user_db as UserDB
+from grey.routes.utils.auth_utils import user_hash
+from grey.routes.utils import unpack, mongo_callback
+from grey.routes.handler import greyHandler
+import grey.db.user_db as UserDB
 
-class AuthHandler(SkyNetHandler):
+class AuthHandler(greyHandler):
     # Create User if doesn't exist
     @unpack(["phone", "device"])
     def login(self, phone, device):

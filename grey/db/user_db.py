@@ -1,7 +1,7 @@
 """
-SkyNet User database handler
+grey User database handler
 """
-from skynet.db.db import mongodb
+from grey.db.db import mongodb
 
 user_db = mongodb.user_db
 

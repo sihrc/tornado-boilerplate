@@ -1,14 +1,14 @@
 """
-SkyNet Test Suite
+grey Test Suite
 Routes > Handler
 """
 import unittest
 
 from mock import patch
 
-from skynet.routes.handler import SkyNetHandler, JSONEncoder
-from skynet.tests.utils.server import server, post
-from skynet.routes.utils import unpack
+from grey.routes.handler import greyHandler, JSONEncoder
+from grey.tests.utils.server import server, post
+from grey.routes.utils import unpack
 
 @unpack(["data"])
 def example(self, data):
@@ -17,14 +17,14 @@ def example(self, data):
 def bad(x):
     raise ValueError
 
-@patch("skynet.routes.utils.smart_parse", bad)
+@patch("grey.routes.utils.smart_parse", bad)
 @unpack(["data"])
 def bad_json_example(self, data):
     print "Shouldn't run"
 
-SkyNetHandler.example = example
-SkyNetHandler.badexample = bad_json_example
-ROUTES = [(r"/(?P<action>[a-zA-Z]+)?", SkyNetHandler)]
+greyHandler.example = example
+greyHandler.badexample = bad_json_example
+ROUTES = [(r"/(?P<action>[a-zA-Z]+)?", greyHandler)]
 
 class RouteHandlerTest(unittest.TestCase):
     port = 7000

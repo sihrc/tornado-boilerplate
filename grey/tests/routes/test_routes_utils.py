@@ -1,11 +1,11 @@
 """
-SkyNet Test Suite
+grey Test Suite
 Routes - Utils
 """
 import unittest, json
 
 from mocks.request_mock import RequestHandler
-import skynet.routes.utils as utils
+import grey.routes.utils as utils
 
 # Mock request handler
 req_handler = RequestHandler()

@@ -1,5 +1,5 @@
 """
-SkyNet Request/Response Utils
+grey Request/Response Utils
 """
 import json, urlparse
 

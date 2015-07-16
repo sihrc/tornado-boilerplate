@@ -1,12 +1,12 @@
 """
-SkyNet Request Handler
+grey Request Handler
 """
 import json
 from bson.objectid import ObjectId
 
 import tornado.web
 
-from skynet.routes.utils.auth_utils import user_hash
+from grey.routes.utils.auth_utils import user_hash
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -14,7 +14,7 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 
-class SkyNetHandler(tornado.web.RequestHandler):
+class greyHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def post(self, action):
         try:

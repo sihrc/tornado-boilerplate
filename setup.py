@@ -1,5 +1,5 @@
 """
-SkyNetServer setup
+greyServer setup
 For development:
     `python setup.py develop`
 """
@@ -8,7 +8,7 @@ import os
 
 if __name__ == "__main__":
     setup(
-        name = "skynet",
+        name = "grey",
         packages = find_packages(),
         install_requires = open(os.path.join(
             os.path.dirname(__file__),

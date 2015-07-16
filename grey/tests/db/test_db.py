@@ -1,5 +1,5 @@
 """
-SkyNet Test Suite
+grey Test Suite
 Db
 """
 import unittest, time
@@ -9,11 +9,11 @@ import motor
 from tornado.ioloop import IOLoop
 from bson.objectid import ObjectId
 
-from skynet.db import db, user_db
-from skynet.tests.utils.motor import SkyNetAsyncTest
+from grey.db import db, user_db
+from grey.tests.utils.motor import greyAsyncTest
 
-@patch("skynet.db.user_db.user_db", db.mongodb.test_user_db)
-class DBTest(SkyNetAsyncTest):
+@patch("grey.db.user_db.user_db", db.mongodb.test_user_db)
+class DBTest(greyAsyncTest):
     def test_db(self):
         self.assertIsInstance(db.mongodb, motor.MotorDatabase)
 
